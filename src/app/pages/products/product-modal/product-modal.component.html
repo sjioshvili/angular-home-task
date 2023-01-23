@@ -1,0 +1,28 @@
+<div [formGroup]="productForm" class="container">
+  <mat-form-field appearance="outline" class="field">
+    <mat-label>Name</mat-label>
+    <input matInput formControlName="name">
+
+  </mat-form-field>
+  <mat-form-field appearance="outline" class="field">
+    <mat-label>Price</mat-label>
+    <input  type="number" matInput formControlName="price">
+
+  </mat-form-field>
+  <mat-form-field appearance="outline" class="field">
+    <mat-label>Count</mat-label>
+    <input  type="number" matInput formControlName="count">
+
+  </mat-form-field>
+
+  <p class="response" *ngIf="showSuccessText">
+    {{succsessText}}
+  </p>
+  <p class="response" *ngIf="showErrorText">
+    {{errorText}}
+  </p>
+  <div class="actions">
+    <button mat-raised-button color="primary" (click)="onSave()" >Save
+    </button>
+  </div>
+</div>

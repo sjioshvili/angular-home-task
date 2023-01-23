@@ -1,15 +1,27 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LogInComponent } from './pages/log-in/log-in.component';
-import { ProductsComponent } from './pages/products/products.component';
 import { AuthGuard } from './helpers/auth.guard';
 
 const routes: Routes = [
-  { path: '', component: ProductsComponent, canActivate: [AuthGuard] },
+  { path: '', redirectTo: '/products', pathMatch: 'full' },
   { path: 'login', component: LogInComponent },
 
-  // otherwise redirect to home
-  { path: '**', redirectTo: '' },
+  {
+    path: 'products',
+    loadChildren: () =>
+      import('./pages/products/products.module').then((m) => m.ProductsModule),
+    canActivate: [AuthGuard],
+  },
+
+  {
+    path: 'managers',
+    loadChildren: () =>
+      import('./pages/sales-managers/sales-managers.module').then(
+        (m) => m.SalesManagersModule
+      ),
+    canActivate: [AuthGuard],
+  },
 ];
 
 @NgModule({

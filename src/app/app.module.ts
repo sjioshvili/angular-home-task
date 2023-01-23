@@ -1,18 +1,20 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { LogInComponent } from './pages/log-in/log-in.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularMaterialModule } from './angular-material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import { AppRoutingModule } from './app-routing.module';
+import { LogInComponent } from './pages/log-in/log-in.component';
+
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BasicAuthInterceptor } from './helpers/auth.interceptor';
 import { ErrorInterceptor } from './helpers/error.interceptor';
 import { fakeBackendProvider } from './helpers/backend';
 import { SharedModule } from './components/shared/shared.module';
+
+import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [AppComponent, LogInComponent],
@@ -20,12 +22,12 @@ import { SharedModule } from './components/shared/shared.module';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    AngularMaterialModule,
     FlexLayoutModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
     SharedModule,
+    AngularMaterialModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },

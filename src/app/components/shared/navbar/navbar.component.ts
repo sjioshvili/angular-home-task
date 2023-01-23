@@ -9,6 +9,7 @@ import { AuthenticationService } from '../../../services/authentication.service'
 })
 export class NavbarComponent implements OnInit {
   public readonly productsPage: string = 'products';
+  public readonly managersPage: string = 'managers';
 
   constructor(private authenticationService: AuthenticationService) {}
 

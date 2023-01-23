@@ -1,0 +1,91 @@
+<div class="container" >
+  <div class="table-header">
+      <h2 >Sales Managers</h2>
+      <button mat-raised-button color="primary" (click)="addNewManager()" >
+        <mat-icon>add</mat-icon>
+        Add New Manager</button>
+
+  </div>
+
+
+
+<form [formGroup]="filterForm">
+  <div  class="filter__form">
+      <mat-form-field  appearance="outline">
+        <mat-label>Username</mat-label>
+        <input matInput formControlName="userName" placeholder="userName">
+      </mat-form-field>
+
+
+      <mat-form-field appearance="outline">
+        <mat-label>FirstName</mat-label>
+        <input matInput formControlName="firstName" placeholder="firstName">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>LastName</mat-label>
+        <input matInput formControlName="lastName" placeholder="LastName">
+      </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Registration date range</mat-label>
+      <mat-date-range-input [rangePicker]="picker">
+        <input matStartDate placeholder="Start date" formControlName="regStartDate">
+        <input matEndDate placeholder="End date" formControlName="regEndDate">
+      </mat-date-range-input>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+    </mat-form-field>
+
+
+    <ngx-numeric-range-form-field
+      formControlName="amountRange"
+      label="Amount range"
+    ></ngx-numeric-range-form-field>
+
+    <button  mat-icon-button
+            color="primary"
+            matTooltip="Filter Managers"
+            matTooltipPosition ="above"
+            (click)="getFormsValue()">
+      <mat-icon >search</mat-icon>
+    </button>
+
+  </div>
+</form>
+
+<div class="example-container mat-elevation-z8">
+  <table mat-table  [dataSource]="dataSource">
+    <ng-container matColumnDef="userName">
+      <mat-header-cell *matHeaderCellDef>UserName </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.userName}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="firstName">
+      <mat-header-cell *matHeaderCellDef> First Name </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.firstName}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="lastName">
+      <mat-header-cell *matHeaderCellDef> Last Name </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.lastName}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="regDate">
+      <mat-header-cell *matHeaderCellDef> Registration Date </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.regDate}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="totalAmount">
+      <mat-header-cell *matHeaderCellDef> Total Amount </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.totalAmount}} </mat-cell>
+    </ng-container>
+
+
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </table>
+   <mat-paginator [pageSizeOptions]="[2, 4, 6, 8, 10]" showFirstLastButtons></mat-paginator>
+</div>
+</div>

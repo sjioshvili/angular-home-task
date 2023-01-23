@@ -9,9 +9,11 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { NavbarComponent } from './navbar/navbar.component';
 import { MatIconModule } from '@angular/material/icon';
+import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
-  declarations: [NavbarComponent],
+  declarations: [NavbarComponent, DeleteDialogComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -23,7 +25,8 @@ import { MatIconModule } from '@angular/material/icon';
     MatIconModule,
 
     RouterModule,
+    MatDialogModule,
   ],
-  exports: [NavbarComponent],
+  exports: [NavbarComponent, DeleteDialogComponent],
 })
 export class SharedModule {}

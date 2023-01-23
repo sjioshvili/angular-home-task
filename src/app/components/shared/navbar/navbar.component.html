@@ -1,8 +1,16 @@
 <mat-toolbar class="flex-between" *ngIf="loggedIn">
   <div class="flex align-center gap-20">
-    <a [routerLink]="[productsPage]">
+    <a [routerLink]="[productsPage]"  routerLinkActive="active"  >
+      <span  >Products</span>
     </a>
-    <span class="title">Products</span>
+
+  </div>
+  <div class="flex align-center gap-20">
+    <a [routerLink]="[managersPage]"  routerLinkActive="active"  >
+      <span
+
+      >Sales managers</span>
+    </a>
   </div>
   <div class="flex gap-10" >
     <button mat-stroked-button color="primary" (click)="logout()" >
