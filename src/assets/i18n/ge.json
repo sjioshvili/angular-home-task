@@ -1,0 +1,39 @@
+{
+  "LoginFormLabels.username": "მომხმარებლის სახელი",
+  "LoginFormLabels.password": "პაროლი",
+  "LoginFormLabels.login": "შესვლა,",
+
+  "navbar.products" : "პროდუქტები",
+  "navbar.managers" : "შესყიდვის მენეჯერები",
+  "navbar.logout" : "გასვლა",
+
+  "productModal.title" : "ახალი პროდუქტის დამატება",
+  "product.name" : "დასახელება",
+
+  "product.price" : "ფასი",
+  "product.count" : "რაოდენობა",
+  "productModal.save" : "შენახვა",
+  "product.edit" : "რედაქტირება",
+  "product.delete" : "წაშლა",
+  "product.sell" : "პროდუქტის გაყიდვა",
+  "product.sellDate" : "გაყიდვის თარიღი",
+
+  "filter" : "ფილტრი",
+  "noData" : "მოცემული ფილტრით მონაცემები არ მოიძებნა",
+
+  "managerModal.title" : "ახალი მენეჯერის დამატება",
+  "managerModal.add" : "ახალი მენეჯერის დამატება",
+  "manager.title" : "შესყიდვის მენეჯერები",
+  "managerModal.save" : "შენახვა",
+  "manager.name" : "იუზერი",
+  "manager.fName" : "სახელი",
+  "manager.lName" : "გვარი",
+  "manager.password" : "პაროლი",
+  "manager.repPassword" : "გაიმეორეთ პაროლი",
+  "manager.regDate" : "რეგისტრაციის თარიღი",
+  "manager.regDateStart" : "დან",
+  "manager.regDateEnd" : "მდე",
+  "manager.amount" : "თანხა",
+  "manager.totalAmount" : "ჯამური თანხა",
+  "manager.history" : "გაყიდვების ისტორია"
+}

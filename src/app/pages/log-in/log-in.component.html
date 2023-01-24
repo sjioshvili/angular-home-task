@@ -1,3 +1,5 @@
+
+<app-switch-lang></app-switch-lang>
 <div class="col-md-6 offset-md-3 mt-5">
   <div class="alert alert-info">
     Username: test<br />
@@ -7,7 +9,7 @@
     <div class="card-body">
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <div class="mb-3">
-          <label class="form-label">Username</label>
+          <label class="form-label">{{'LoginFormLabels.username'| translate }}</label>
           <input type="text" formControlName="username" class="form-control"
                  [ngClass]="{ 'is-invalid': submitted && loginForm.controls['username'].errors}" />
           <div *ngIf="submitted && loginForm.controls['username'].errors" class="invalid-feedback">
@@ -15,7 +17,7 @@
           </div>
         </div>
         <div class="mb-3">
-          <label class="form-label">Password</label>
+          <label class="form-label">{{'LoginFormLabels.password'| translate }}</label>
           <input type="password" formControlName="password" class="form-control"
                  [ngClass]="{ 'is-invalid': submitted && loginForm.controls['password'].errors }" />
           <div *ngIf="submitted && loginForm.controls['password'].errors" class="invalid-feedback">
@@ -24,7 +26,7 @@
         </div>
         <button [disabled]="loading" class="btn btn-primary">
           <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>
-          Login
+          {{'LoginFormLabels.login'| translate }}
         </button>
         <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>
       </form>

@@ -1,16 +1,17 @@
+<h2 class="title">{{'productModal.title'| translate}}</h2>
 <div [formGroup]="productForm" class="container">
   <mat-form-field appearance="outline" class="field">
-    <mat-label>Name</mat-label>
+    <mat-label>{{'product.name'| translate}}</mat-label>
     <input matInput formControlName="name">
 
   </mat-form-field>
   <mat-form-field appearance="outline" class="field">
-    <mat-label>Price</mat-label>
+    <mat-label>{{'product.price'| translate}}</mat-label>
     <input  type="number" matInput formControlName="price">
 
   </mat-form-field>
   <mat-form-field appearance="outline" class="field">
-    <mat-label>Count</mat-label>
+    <mat-label>{{'product.count'| translate}}</mat-label>
     <input  type="number" matInput formControlName="count">
 
   </mat-form-field>
@@ -22,7 +23,8 @@
     {{errorText}}
   </p>
   <div class="actions">
-    <button mat-raised-button color="primary" (click)="onSave()" >Save
+    <button mat-raised-button color="primary" (click)="onSave()" >
+      {{'productModal.save'| translate}}
     </button>
   </div>
 </div>

@@ -1,21 +1,20 @@
-<mat-toolbar class="flex-between" *ngIf="loggedIn">
+<mat-toolbar  *ngIf="loggedIn" class="flex-between">
   <div class="flex align-center gap-20">
     <a [routerLink]="[productsPage]"  routerLinkActive="active"  >
-      <span  >Products</span>
+      <span >{{'navbar.products'| translate}}</span>
     </a>
-
   </div>
   <div class="flex align-center gap-20">
     <a [routerLink]="[managersPage]"  routerLinkActive="active"  >
-      <span
-
-      >Sales managers</span>
+      <span >{{'navbar.managers'| translate}}</span>
     </a>
   </div>
-  <div class="flex gap-10" >
+  <div class="lang-container" >
     <button mat-stroked-button color="primary" (click)="logout()" >
       <mat-icon>logout</mat-icon>
-      <span class="ml-10">Logout</span>
+      <span class="ml-10">{{'navbar.logout'| translate}}</span>
     </button>
+    <app-switch-lang></app-switch-lang>
   </div>
+
 </mat-toolbar>

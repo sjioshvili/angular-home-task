@@ -1,6 +1,8 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { ProductsComponent } from './products.component';
 import { ProductsRoutingModule } from './products-routing.module';
 import { AngularMaterialModule } from '../../angular-material.module';
@@ -14,6 +16,7 @@ import { SaleProductModalComponent } from './sale-product-modal/sale-product-mod
     ReactiveFormsModule,
     ProductsRoutingModule,
     AngularMaterialModule,
+    TranslateModule,
   ],
   declarations: [
     ProductsComponent,

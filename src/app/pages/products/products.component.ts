@@ -56,7 +56,7 @@ export class ProductsComponent implements OnInit, AfterViewInit {
   public openDialog(element?: Product): void {
     const dialogRef = this.dialog.open(ProductModalComponent, {
       width: '460px',
-      height: '380px',
+      height: '500px',
       data: {
         products: element,
       },

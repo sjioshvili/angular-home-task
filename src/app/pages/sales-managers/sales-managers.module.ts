@@ -6,6 +6,8 @@ import { SalesManagersRoutingModule } from './sales-managers-routing.module';
 import { SalesManagersComponent } from './sales-managers.component';
 import { NgxNumericRangeFormFieldModule } from 'ngx-numeric-range-form-field';
 import { SaleManagerModalComponent } from './sales-manager-modal/sale-manager-modal.component';
+import { SaleHistoryModalComponent } from './sales-history/sale-history-modal.component';
+import { TranslateModule } from '@ngx-translate/core';
 @NgModule({
   imports: [
     CommonModule,
@@ -14,8 +16,13 @@ import { SaleManagerModalComponent } from './sales-manager-modal/sale-manager-mo
     SalesManagersRoutingModule,
     AngularMaterialModule,
     NgxNumericRangeFormFieldModule,
+    TranslateModule,
   ],
-  declarations: [SalesManagersComponent, SaleManagerModalComponent],
+  declarations: [
+    SalesManagersComponent,
+    SaleManagerModalComponent,
+    SaleHistoryModalComponent,
+  ],
   exports: [SalesManagersComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

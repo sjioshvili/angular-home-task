@@ -1,37 +1,40 @@
 <div class="container" >
   <div class="table-header">
-      <h2 >Sales Managers</h2>
-      <button mat-raised-button color="primary" (click)="addNewManager()" >
+      <h2 >{{'manager.title'| translate}}</h2>
+      <button mat-raised-button color="primary"
+              (click)="addNewManager()" >
         <mat-icon>add</mat-icon>
-        Add New Manager</button>
-
+        {{'managerModal.add'| translate}}
+      </button>
   </div>
-
-
 
 <form [formGroup]="filterForm">
   <div  class="filter__form">
-      <mat-form-field  appearance="outline">
-        <mat-label>Username</mat-label>
-        <input matInput formControlName="userName" placeholder="userName">
+      <mat-form-field  appearance="outline"
+                       [floatLabel]="'always'">
+        <mat-label>{{'manager.name'| translate}}</mat-label>
+        <input matInput formControlName="userName" placeholder="{{'manager.name'| translate}}">
       </mat-form-field>
 
 
-      <mat-form-field appearance="outline">
-        <mat-label>FirstName</mat-label>
-        <input matInput formControlName="firstName" placeholder="firstName">
+      <mat-form-field appearance="outline"
+                      [floatLabel]="'always'">
+        <mat-label>{{'manager.fName'| translate}}</mat-label>
+        <input matInput formControlName="firstName" placeholder="{{'manager.fName'| translate}}">
       </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label>LastName</mat-label>
-        <input matInput formControlName="lastName" placeholder="LastName">
+      <mat-form-field appearance="outline"
+                      [floatLabel]="'always'">
+        <mat-label>{{'manager.lName'| translate}}</mat-label>
+        <input matInput formControlName="lastName" placeholder="{{'manager.lName'| translate}}">
       </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Registration date range</mat-label>
+    <mat-form-field appearance="outline"
+                    [floatLabel]="'always'" >
+      <mat-label>{{'manager.regDate'| translate}}</mat-label>
       <mat-date-range-input [rangePicker]="picker">
-        <input matStartDate placeholder="Start date" formControlName="regStartDate">
-        <input matEndDate placeholder="End date" formControlName="regEndDate">
+        <input matStartDate placeholder="{{'manager.regDateStart'| translate}}" formControlName="regStartDate">
+        <input matEndDate placeholder="{{'manager.regDateEnd'| translate}}" formControlName="regEndDate">
       </mat-date-range-input>
       <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-date-range-picker #picker></mat-date-range-picker>
@@ -40,7 +43,7 @@
 
     <ngx-numeric-range-form-field
       formControlName="amountRange"
-      label="Amount range"
+      label="{{'manager.amount'| translate}}"
     ></ngx-numeric-range-form-field>
 
     <button  mat-icon-button
@@ -57,34 +60,53 @@
 <div class="example-container mat-elevation-z8">
   <table mat-table  [dataSource]="dataSource">
     <ng-container matColumnDef="userName">
-      <mat-header-cell *matHeaderCellDef>UserName </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef>{{'manager.name'| translate}} </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.userName}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="firstName">
-      <mat-header-cell *matHeaderCellDef> First Name </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef> {{'manager.fName'| translate}} </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.firstName}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="lastName">
-      <mat-header-cell *matHeaderCellDef> Last Name </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef> {{'manager.lName'| translate}} </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.lastName}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="regDate">
-      <mat-header-cell *matHeaderCellDef> Registration Date </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef> {{'manager.regDate'| translate}} </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.regDate}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="totalAmount">
-      <mat-header-cell *matHeaderCellDef> Total Amount </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef> {{'manager.totalAmount'| translate}} </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.totalAmount}} </mat-cell>
     </ng-container>
 
+    <ng-container matColumnDef="actions"  >
+      <mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</mat-header-cell>
+      <mat-cell *matCellDef="let manager">
+        <button mat-icon-button
+                class="edit-button"
+                color="primary"
+                matTooltip="{{'manager.history'| translate}}"
+                matTooltipPosition ="above"
+                (click)="openHistory(manager)">
+          <mat-icon class="action-icons">history</mat-icon>
+        </button>
+
+      </mat-cell>
+    </ng-container>
 
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+    <!-- Row shown when there is no matching data. -->
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">{{'noData'|translate}} </td>
+    </tr>
   </table>
    <mat-paginator [pageSizeOptions]="[2, 4, 6, 8, 10]" showFirstLastButtons></mat-paginator>
 </div>

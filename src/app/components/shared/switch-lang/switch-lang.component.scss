@@ -1,0 +1,12 @@
+.flag-container{
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding: 20px;
+
+  mat-icon{
+    cursor: pointer;
+  }
+}

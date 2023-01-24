@@ -1,0 +1,26 @@
+@import "src/styles/colors";
+
+:host{
+  padding: 20px;
+}
+.field {
+  width: 400px;
+}
+
+.actions {
+  text-align: end;
+}
+.response {
+  margin-top: 10px;
+  text-align:  center;
+  color: $success;
+}
+
+.error {
+  margin-top: 10px;
+  text-align:  center;
+  color: $error-color;
+}
+.title {
+  padding: 0 20px;
+}

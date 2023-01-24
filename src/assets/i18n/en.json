@@ -1,0 +1,39 @@
+{
+  "LoginFormLabels.username": "UserName",
+  "LoginFormLabels.password": "Password",
+  "LoginFormLabels.login": "Login",
+
+  "navbar.products" : "Products",
+  "navbar.managers" : "Sales Managers",
+  "navbar.logout" : "Logout",
+
+  "productModal.title" : "Create new Product",
+  "productModal.save" : "Save",
+  "product.name" : "Name",
+  "product.price" : "Price",
+  "product.count" : "Count",
+  "product.edit" : "Edit",
+  "product.delete" : "Delete",
+  "product.sell" : "Sell Product",
+  "product.sellDate" : "Sell Date",
+
+  "filter" : "Filter",
+  "noData" : "No data matching the filter",
+
+  "managerModal.title" : "Create New Sales Manager",
+  "managerModal.add" : "Add New Sales Manager",
+  "manager.title" : "Sales Managers",
+  "manager.add" : "user Name",
+  "manager.name" : "user Name",
+  "manager.fName" : "First Name",
+  "manager.lName" : "Last name",
+  "manager.regDate" : "Registration Date",
+  "manager.regDateStart" : "Start Date",
+  "manager.regDateEnd" : "End Date",
+  "manager.amount" : "Amount",
+  "manager.totalAmount" : "Total Amount",
+  "manager.password" : "Password",
+  "manager.repPassword" : "Repeat Password",
+  "managerModal.save" : "Save",
+  "manager.history" : "Products Sales History"
+}

@@ -8,6 +8,7 @@ import { ProductModalComponent } from '../products/product-modal/product-modal.c
 import { filter } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { SaleManagerModalComponent } from './sales-manager-modal/sale-manager-modal.component';
+import { SaleHistoryModalComponent } from './sales-history/sale-history-modal.component';
 
 @Component({
   selector: 'app-sales-managers',
@@ -36,6 +37,7 @@ export class SalesManagersComponent implements OnInit {
     'lastName',
     'regDate',
     'totalAmount',
+    'actions',
   ];
   dataSource = new MatTableDataSource<SalesManager>(this.ELEMENT_DATA);
 
@@ -139,6 +141,22 @@ export class SalesManagersComponent implements OnInit {
     const dialogRef = this.dialog.open(SaleManagerModalComponent, {
       width: '460px',
       height: '600px',
+    });
+    dialogRef
+      .afterClosed()
+      .pipe(filter((response: boolean) => response))
+      .subscribe(() => {
+        // this.taskService.taskListUpdate.next(true);
+      });
+  }
+
+  public openHistory(manager: SalesManager): void {
+    const dialogRef = this.dialog.open(SaleHistoryModalComponent, {
+      width: '600px',
+      height: '500px',
+      data: {
+        manager: manager,
+      },
     });
     dialogRef
       .afterClosed()

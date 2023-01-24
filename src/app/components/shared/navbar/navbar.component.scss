@@ -4,3 +4,7 @@
 .active {
   color: $text-secondary;
 }
+.lang-container {
+  display: flex;
+  align-items: baseline;
+}
