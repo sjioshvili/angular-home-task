@@ -5,11 +5,11 @@
         <mat-label>{{'filter'| translate}}</mat-label>
         <input matInput
                (keyup)="applyFilter($event)"
-               placeholder="{{'product.filter'| translate}}" #input>
+               placeholder="{{'filter'| translate}}" #input>
       </mat-form-field>
     <div>
       <button mat-raised-button color="primary"
-              (click)="addData()" >
+              (click)="openProductDialog()" >
         <mat-icon>add</mat-icon>
         {{'productModal.title'| translate}}
       </button>
@@ -22,7 +22,7 @@
     <!-- Name Column -->
     <ng-container matColumnDef="name">
       <mat-header-cell *matHeaderCellDef mat-sort-header> {{'product.name'| translate}} </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.name}}% </mat-cell>
+      <mat-cell *matCellDef="let row"> {{row.name}}</mat-cell>
     </ng-container>
 
 
@@ -34,7 +34,7 @@
 
     <!-- Count Column -->
     <ng-container matColumnDef="count">
-      <mat-header-cell  *matHeaderCellDef mat-sort-header> {{'product.name'| translate}} </mat-header-cell>
+      <mat-header-cell  *matHeaderCellDef mat-sort-header> {{'product.count'| translate}} </mat-header-cell>
       <mat-cell  *matCellDef="let row"> {{row.count}} </mat-cell>
     </ng-container>
 
@@ -44,15 +44,15 @@
         <button mat-icon-button
                 class="edit-button"
                 color="primary"
-                matTooltip="{{'product.edit' | translate}}"
+                matTooltip="{{'edit' | translate}}"
                 matTooltipPosition ="above"
-                (click)="openDialog(product)">
+                (click)="openProductDialog(product)">
           <mat-icon class="action-icons">edit</mat-icon>
         </button>
         <button mat-icon-button
                 class="edit-button"
                 color="accent"
-                matTooltip="{{'product.delete' | translate}}"
+                matTooltip="{{'delete' | translate}}"
                 matTooltipPosition ="above"
                 (click)="deleteProduct(product)">
           <mat-icon class="action-icons">delete</mat-icon>
@@ -76,6 +76,6 @@
       <td class="mat-cell-no-data" colspan="4">{{'noData'|translate}} "{{input.value}}"</td>
     </tr>
   </table>
-    <mat-paginator pageSize="[5, 10, 25, 100]" aria-label="Select page of products"></mat-paginator>
+    <mat-paginator [pageSizeOptions]="[5, 10, 50, 100]" aria-label="Select page of products"></mat-paginator>
 </div>
 </div>

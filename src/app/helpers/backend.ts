@@ -8,7 +8,7 @@ import {
   HTTP_INTERCEPTORS,
 } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
-import { delay, mergeMap, materialize, dematerialize } from 'rxjs/operators';
+import { delay, materialize, dematerialize } from 'rxjs/operators';
 import { User } from '../models/user';
 
 const users: User[] = [
@@ -57,35 +57,15 @@ export class FakeBackendInterceptor implements HttpInterceptor {
       });
     }
 
-    function register() {
-      const user = body;
-
-      if (users.find((x) => x.username === user.username)) {
-        return error('Username "' + user.username + '" is already taken');
-      }
-
-      user.id = users.length ? Math.max(...users.map((x) => x.id)) + 1 : 1;
-      users.push(user);
-      return ok();
-    }
-
     function getUsers() {
       if (!isLoggedIn()) return unauthorized();
       return ok(users.map((x) => basicDetails(x)));
-    }
-
-    function getUserById() {
-      if (!isLoggedIn()) return unauthorized();
-
-      const user = users.find((x) => x.id === idFromUrl());
-      return ok(basicDetails(user));
     }
 
     // helper functions
 
     function ok(body?: any) {
       return of(new HttpResponse({ status: 200, body })).pipe(delay(500));
-      // delay observable to simulate server api call
     }
 
     function error(message: string) {
@@ -113,16 +93,10 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         headers.get('Authorization') === `Basic ${window.btoa('test:test')}`
       );
     }
-
-    function idFromUrl() {
-      const urlParts = url.split('/');
-      return parseInt(urlParts[urlParts.length - 1]);
-    }
   }
 }
 
 export let fakeBackendProvider = {
-  // use fake backend in place of Http service for backend-less development
   provide: HTTP_INTERCEPTORS,
   useClass: FakeBackendInterceptor,
   multi: true,

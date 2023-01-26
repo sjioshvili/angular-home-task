@@ -21,6 +21,10 @@ import { SharedModule } from './components/shared/shared.module';
 import { AppComponent } from './app.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { NgxsModule } from '@ngxs/store';
+import { ProductState } from './store/products/products.state';
+import { ManagerState } from './store/sale-managers/saleManagers.state';
+
 @NgModule({
   declarations: [AppComponent, LogInComponent],
   imports: [
@@ -40,12 +44,12 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
         deps: [HttpClient],
       },
     }),
+
+    NgxsModule.forRoot([ProductState, ManagerState]),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-
-    // provider used to create fake backend
     fakeBackendProvider,
   ],
   bootstrap: [AppComponent],

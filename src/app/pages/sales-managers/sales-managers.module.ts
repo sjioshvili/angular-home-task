@@ -8,6 +8,7 @@ import { NgxNumericRangeFormFieldModule } from 'ngx-numeric-range-form-field';
 import { SaleManagerModalComponent } from './sales-manager-modal/sale-manager-modal.component';
 import { SaleHistoryModalComponent } from './sales-history/sale-history-modal.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { SharedModule } from '../../components/shared/shared.module';
 @NgModule({
   imports: [
     CommonModule,
@@ -17,6 +18,7 @@ import { TranslateModule } from '@ngx-translate/core';
     AngularMaterialModule,
     NgxNumericRangeFormFieldModule,
     TranslateModule,
+    SharedModule,
   ],
   declarations: [
     SalesManagersComponent,

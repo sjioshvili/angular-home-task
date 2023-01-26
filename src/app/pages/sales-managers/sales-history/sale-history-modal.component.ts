@@ -4,6 +4,14 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Product } from '../../../models/product';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { ProductSell } from '../../../models/productSell';
+import { Select, Store } from '@ngxs/store';
+import { ProductState } from '../../../store/products/products.state';
+import { Observable } from 'rxjs';
+import { GetProducts } from '../../../store/products/products.actions';
+import { ManagerState } from '../../../store/sale-managers/saleManagers.state';
+import { GetSaleHistory } from '../../../store/sale-managers/saleManagers.action';
+import { SaleManagerService } from '../../../services/sale-manager.service';
 
 @Component({
   selector: 'sales-history-modal',
@@ -12,27 +20,31 @@ import { MatSort } from '@angular/material/sort';
 })
 export class SaleHistoryModalComponent implements OnInit {
   displayedColumns: string[] = ['name', 'price', 'count', 'sellDate'];
-  dataSource!: MatTableDataSource<Product>;
+  dataSource!: MatTableDataSource<ProductSell>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  products: Product[] = [
-    {
-      id: 1,
-      name: 'product1',
-      price: 30,
-      count: 100,
-      sellDate: new Date('01/01/2022  21:00'),
-    },
-  ];
-
   constructor(
     public dialogRef: MatDialogRef<SaleHistoryModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private store: Store
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getSaleHistory();
+  }
+
+  @Select(ManagerState.saleHistorySelector) getSaleHistoryOb$!: Observable<
+    ProductSell[]
+  >;
+  getSaleHistory() {
+    this.store.dispatch(new GetSaleHistory(this.data.manager.id));
+    this.getSaleHistoryOb$.subscribe((res) => {
+      const history = res;
+      this.dataSource = new MatTableDataSource(history);
+    });
+  }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

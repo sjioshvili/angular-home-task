@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
+import { LangService } from '../../../services/lang.service';
 
 @Component({
   selector: 'app-switch-lang',
@@ -12,7 +13,8 @@ export class SwitchLangComponent implements OnInit {
   constructor(
     private translate: TranslateService,
     private iconRegistry: MatIconRegistry,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private langService: LangService
   ) {
     translate.addLangs(['en', 'ge']);
   }
@@ -37,12 +39,7 @@ export class SwitchLangComponent implements OnInit {
   }
 
   getLang(): void {
-    let lang = sessionStorage.getItem('language');
-    if (lang) {
-      this.translate.use(lang);
-    } else {
-      this.translate.use('en');
-    }
+    this.translate.use(this.langService.getCurLang());
   }
   switchLanguage(lang: string): void {
     this.translate.use(lang);

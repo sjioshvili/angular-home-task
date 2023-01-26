@@ -14,9 +14,17 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { SwitchLangComponent } from './switch-lang/switch-lang.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { DateFormatPipe } from './pipes/DateFormatPipe';
+import { DateTimeFormatPipe } from './pipes/dateTimeFormatPipe';
 
 @NgModule({
-  declarations: [NavbarComponent, DeleteDialogComponent, SwitchLangComponent],
+  declarations: [
+    NavbarComponent,
+    DeleteDialogComponent,
+    SwitchLangComponent,
+    DateFormatPipe,
+    DateTimeFormatPipe,
+  ],
   imports: [
     CommonModule,
     FormsModule,
@@ -32,6 +40,12 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     TranslateModule,
     MatTooltipModule,
   ],
-  exports: [NavbarComponent, DeleteDialogComponent, SwitchLangComponent],
+  exports: [
+    NavbarComponent,
+    DeleteDialogComponent,
+    SwitchLangComponent,
+    DateFormatPipe,
+    DateTimeFormatPipe,
+  ],
 })
 export class SharedModule {}

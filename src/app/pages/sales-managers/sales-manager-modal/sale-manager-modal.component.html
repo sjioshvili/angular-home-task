@@ -1,6 +1,6 @@
 <h2 class="title">{{'managerModal.title'| translate}}</h2>
 
-<div [formGroup]="productForm" class="container">
+<div [formGroup]="managerForm" class="container">
   <mat-form-field appearance="outline" class="field">
     <mat-label>{{'manager.name'| translate}}</mat-label>
     <input matInput formControlName="userName">
@@ -26,15 +26,8 @@
   <mat-form-field appearance="outline" class="field">
     <mat-label>{{'manager.repPassword'| translate}}</mat-label>
     <input type="password"  matInput formControlName="passwordRep">
-
   </mat-form-field>
 
-  <p class="response" *ngIf="showSuccessText">
-    {{succsessText}}
-  </p>
-  <p class="response" *ngIf="showErrorText">
-    {{errorText}}
-  </p>
   <div class="actions">
     <button mat-raised-button color="primary" (click)="onSave()" >
       {{'managerModal.save'| translate}}

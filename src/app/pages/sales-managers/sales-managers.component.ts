@@ -1,34 +1,32 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
 import { FormControl, FormGroup } from '@angular/forms';
-import { MatTableDataSource } from '@angular/material/table';
-import { Product } from '../../models/product';
-import { SalesManager } from '../../models/salesManager';
-import { ProductModalComponent } from '../products/product-modal/product-modal.component';
-import { filter } from 'rxjs';
+import { filter, Observable } from 'rxjs';
+
 import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { Select, Store } from '@ngxs/store';
+import { ManagerState } from '../../store/sale-managers/saleManagers.state';
+import {
+  AddManager,
+  DeleteManager,
+  EditManager,
+  GetManagers,
+} from '../../store/sale-managers/saleManagers.action';
+
+import { DeleteDialogComponent } from '../../components/shared/delete-dialog/delete-dialog.component';
+import { SalesManager } from '../../models/salesManager';
 import { SaleManagerModalComponent } from './sales-manager-modal/sale-manager-modal.component';
 import { SaleHistoryModalComponent } from './sales-history/sale-history-modal.component';
-
 @Component({
   selector: 'app-sales-managers',
   templateUrl: './sales-managers.component.html',
   styleUrls: ['./sales-managers.component.scss'],
 })
 export class SalesManagersComponent implements OnInit {
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog, private store: Store) {}
 
-  ELEMENT_DATA: SalesManager[] = [
-    {
-      id: 2,
-      userName: 'manager',
-      lastName: 'test',
-      regDate: '01/01/2020',
-      password: 'test',
-      totalAmount: 500,
-      firstName: 'test',
-    },
-  ];
+  dataSource = new MatTableDataSource<SalesManager>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   displayedColumns = [
@@ -39,7 +37,6 @@ export class SalesManagersComponent implements OnInit {
     'totalAmount',
     'actions',
   ];
-  dataSource = new MatTableDataSource<SalesManager>(this.ELEMENT_DATA);
 
   filterValues = {
     userName: '',
@@ -63,6 +60,7 @@ export class SalesManagersComponent implements OnInit {
   });
 
   ngOnInit() {
+    this.getManagers();
     this.formSubscribe();
     this.getFormsValue();
   }
@@ -137,17 +135,60 @@ export class SalesManagersComponent implements OnInit {
     this.dataSource.filter = JSON.stringify(this.filterValues);
   }
 
-  public addNewManager(): void {
+  @Select(ManagerState.getManagerSelector) getManagersOb$!: Observable<
+    SalesManager[]
+  >;
+  getManagers() {
+    this.store.dispatch(new GetManagers());
+    this.getManagersOb$.subscribe((res) => {
+      const managers = res;
+      this.dataSource = new MatTableDataSource(managers);
+    });
+  }
+
+  public openManagerModal(manager?: SalesManager): void {
     const dialogRef = this.dialog.open(SaleManagerModalComponent, {
       width: '460px',
       height: '600px',
+      data: {
+        manager: manager,
+      },
     });
-    dialogRef
-      .afterClosed()
-      .pipe(filter((response: boolean) => response))
-      .subscribe(() => {
-        // this.taskService.taskListUpdate.next(true);
-      });
+    dialogRef.afterClosed().subscribe((data: SalesManager) => {
+      if (data) {
+        const manager: SalesManager = {
+          id: data.id || Math.floor(Math.random()),
+          userName: data.userName,
+          firstName: data.firstName,
+          lastName: data.lastName,
+          password: data.password,
+          regDate: data.regDate,
+        };
+        let actObject = data.id
+          ? new EditManager(manager)
+          : new AddManager(manager);
+        this.store.dispatch(actObject).subscribe(() => {
+          this.getManagers();
+        });
+      }
+    });
+  }
+
+  public deleteManager(element: SalesManager): void {
+    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      width: '450px',
+      data: {
+        title: 'Delete Manager',
+        text: `Are you sure you want to delete  Manager ${element.userName}?`,
+      },
+    });
+    dialogRef.afterClosed().subscribe((res: boolean) => {
+      if (res) {
+        this.store.dispatch(new DeleteManager(element.id)).subscribe(() => {
+          this.getManagers();
+        });
+      }
+    });
   }
 
   public openHistory(manager: SalesManager): void {

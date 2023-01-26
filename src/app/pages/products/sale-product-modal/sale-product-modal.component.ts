@@ -1,6 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Store } from '@ngxs/store';
+import { SellProduct } from '../../../store/products/products.actions';
+import { ProductSell } from '../../../models/productSell';
+import { AuthenticationService } from '../../../services/authentication.service';
+import { catchError } from 'rxjs/operators';
+import { DateFormatService } from '../../../services/date-format.service';
 
 @Component({
   selector: 'sale-product-modal',
@@ -8,68 +14,68 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./sale-product-modal.component.scss'],
 })
 export class SaleProductModalComponent implements OnInit {
-  productForm!: FormGroup;
+  productForm = new FormGroup({
+    name: new FormControl(''),
+    price: new FormControl(''),
+    count: new FormControl('', [
+      Validators.required,
+      Validators.max(this.data.count),
+    ]),
+    sellDate: new FormControl(new Date(), Validators.required),
+  });
 
-  public readonly reqErrorText: string = 'This field is required!';
-
-  public readonly successText: string = 'Product sold successfully!';
-  public showSuccessText: boolean = false;
-
-  public errorText: string = 'Error!';
-  public showErrorText: boolean = false;
+  errorText: string = '';
 
   constructor(
     public dialogRef: MatDialogRef<SaleProductModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
-  ) {}
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private store: Store,
+    private authService: AuthenticationService,
+    private format: DateFormatService
+  ) {
+    this.productForm.get('name')?.setValue(data.name);
+    this.productForm.get('price')?.setValue(data.price);
+  }
 
   ngOnInit(): void {
-    this.initForm();
-  }
-
-  createForm(): void {
-    this.productForm = new FormGroup({
-      id: new FormControl(''),
-      count: new FormControl('', Validators.required),
-      saleDate: new FormControl('', Validators.required),
-    });
-  }
-
-  initForm(): void {
-    this.createForm();
+    console.log('current date', this.format.date_TO_String(new Date()));
   }
 
   onSave(): void {
+    console.log(
+      'date',
+      new Date(this.productForm.get('sellDate')?.value || ''),
+      this.format.date_TO_String(
+        new Date(this.productForm.get('sellDate')?.value || '')
+      )
+    );
+
     if (this.productForm.invalid) {
       return;
     }
 
-    if (this.productForm.get('id')?.value) {
-      // this.taskService.updateTask(this.taskForm.value).subscribe(
-      //   (res) => {
-      //     this.showSuccessText = true;
-      //   },
-      //   (error) => {
-      //     this.errorText = error.message;
-      //     this.showErrorText = true;
-      //   }
-      // );
-    } else {
-      let id = Math.random();
-      this.productForm.get('id')?.setValue(id);
-      // this.taskService.createTask(this.taskForm.value).subscribe(
-      //   (res) => {
-      //     this.showSuccessText = true;
-      //
-      //     // setTimeout(() => {
-      //     //   this.dialogRef.close();
-      //     // }, 1000);
-      //   },
-      //   (error) => {
-      //     this.errorText = error.message;
-      //     this.showErrorText = true;
-      //   }
-      // );
-    }
+    const productSell: ProductSell = {
+      id: this.generateRandomInteger(1000),
+      productId: this.data.id,
+      name: this.data.name,
+      price: this.data.price,
+      count: Number(this.productForm.get('count')?.value),
+      sellDate: this.format.date_TO_String(
+        new Date(this.productForm.get('sellDate')?.value || '')
+      ),
+
+      managerId: this.authService.currentUserValue.id,
+    };
+
+    this.store
+      .dispatch(new SellProduct(productSell))
+      .pipe(catchError((err) => (this.errorText = err.name)))
+      .subscribe(() => {
+        this.dialogRef.close(true);
+      });
+  }
+
+  generateRandomInteger(max: number): number {
+    return Math.floor(Math.random() * max) + 1;
   }
 }

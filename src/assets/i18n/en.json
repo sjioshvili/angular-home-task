@@ -12,13 +12,15 @@
   "product.name" : "Name",
   "product.price" : "Price",
   "product.count" : "Count",
-  "product.edit" : "Edit",
-  "product.delete" : "Delete",
+
   "product.sell" : "Sell Product",
   "product.sellDate" : "Sell Date",
 
   "filter" : "Filter",
-  "noData" : "No data matching the filter",
+  "noData" : "No data found",
+  "sell" : "Sell",
+  "edit" : "Edit",
+  "delete" : "Delete",
 
   "managerModal.title" : "Create New Sales Manager",
   "managerModal.add" : "Add New Sales Manager",

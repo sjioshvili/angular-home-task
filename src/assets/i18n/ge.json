@@ -13,13 +13,14 @@
   "product.price" : "ფასი",
   "product.count" : "რაოდენობა",
   "productModal.save" : "შენახვა",
-  "product.edit" : "რედაქტირება",
-  "product.delete" : "წაშლა",
   "product.sell" : "პროდუქტის გაყიდვა",
   "product.sellDate" : "გაყიდვის თარიღი",
 
   "filter" : "ფილტრი",
-  "noData" : "მოცემული ფილტრით მონაცემები არ მოიძებნა",
+  "noData" : "მონაცემები არ მოიძებნა",
+  "sell" : "გაყიდვა",
+  "edit" : "რედაქტირება",
+  "delete" : "წაშლა",
 
   "managerModal.title" : "ახალი მენეჯერის დამატება",
   "managerModal.add" : "ახალი მენეჯერის დამატება",

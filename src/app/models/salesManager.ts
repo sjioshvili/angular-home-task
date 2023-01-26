@@ -5,5 +5,5 @@ export interface SalesManager {
   firstName: string;
   lastName: string;
   regDate: string;
-  totalAmount: number;
+  totalAmount?: number;
 }
