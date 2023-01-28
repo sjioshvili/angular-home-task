@@ -39,8 +39,10 @@ export class ProductModalComponent implements OnInit {
   }
 
   setLangValidator() {
-    let curLang = this.langservice.getCurLang();
-    let pattern = curLang === 'en' ? '([a-zA-Z]+)' : '(|[\u10D0-\u10F0]+)';
+    // Tavidan megona rom interfeisis enis mixedviT unda dameseta validatori da mere mivxvdi enas ar aqvs mnishvneloba :d
+    // let curLang = this.langservice.getCurLang();
+    // let pattern = curLang === 'en' ? '([a-zA-Z]+)' : '(|[\u10D0-\u10F0]+)';
+    let pattern = '([a-zA-Z]+|[\\\u10D0-\\\u10F0]+)';
     this.productForm.get('name')?.setValidators(Validators.pattern(pattern));
   }
   onSave(): void {

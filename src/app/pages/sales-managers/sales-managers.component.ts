@@ -18,13 +18,18 @@ import { DeleteDialogComponent } from '../../components/shared/delete-dialog/del
 import { SalesManager } from '../../models/salesManager';
 import { SaleManagerModalComponent } from './sales-manager-modal/sale-manager-modal.component';
 import { SaleHistoryModalComponent } from './sales-history/sale-history-modal.component';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-sales-managers',
   templateUrl: './sales-managers.component.html',
   styleUrls: ['./sales-managers.component.scss'],
 })
 export class SalesManagersComponent implements OnInit {
-  constructor(public dialog: MatDialog, private store: Store) {}
+  constructor(
+    public dialog: MatDialog,
+    private store: Store,
+    private datePipe: DatePipe
+  ) {}
 
   dataSource = new MatTableDataSource<SalesManager>();
 
@@ -42,18 +47,20 @@ export class SalesManagersComponent implements OnInit {
     userName: '',
     firstName: '',
     lastName: '',
-    regStartDate: '',
-    regEndDate: '',
-    amountStart: '',
-    amountEnd: '',
+
+    regStartDate: '2020-01-01',
+    regEndDate: '2024-01-01',
+    // set default search values
+    amountStart: 0,
+    amountEnd: 1000,
   };
 
   filterForm = new FormGroup({
     userName: new FormControl(),
     firstName: new FormControl(),
     lastName: new FormControl(),
-    regStartDate: new FormControl(),
-    regEndDate: new FormControl(),
+    regStartDate: new FormControl(new Date(2020, 1, 1)),
+    regEndDate: new FormControl(new Date(2024, 1, 1)),
     amountStart: new FormControl(),
     amountEnd: new FormControl(),
     amountRange: new FormControl({ minimum: 0, maximum: 1000 }),
@@ -79,26 +86,32 @@ export class SalesManagersComponent implements OnInit {
       this.filterValues['lastName'] = lastName;
       this.dataSource.filter = JSON.stringify(this.filterValues);
     });
+
     this.filterForm
       .get('regStartDate')
       ?.valueChanges.subscribe((regStartDate) => {
-        this.filterValues['regStartDate'] = regStartDate;
+        // @ts-ignore
+        this.filterValues['regStartDate'] = regStartDate
+          ? regStartDate
+          : new Date(2020, 1, 1).toISOString();
         this.dataSource.filter = JSON.stringify(this.filterValues);
       });
-
     this.filterForm.get('regEndDate')?.valueChanges.subscribe((regEndDate) => {
-      this.filterValues['regEndDate'] = regEndDate;
+      // @ts-ignore
+      this.filterValues['regEndDate'] = regEndDate
+        ? regEndDate
+        : new Date(2020, 1, 1).toISOString();
       this.dataSource.filter = JSON.stringify(this.filterValues);
     });
 
-    this.filterForm
-      .get('amountStart')
-      ?.valueChanges.subscribe((amountStart) => {
-        this.filterValues['amountStart'] = amountStart;
-        this.dataSource.filter = JSON.stringify(this.filterValues);
-      });
-    this.filterForm.get('amountEnd')?.valueChanges.subscribe((amountEnd) => {
-      this.filterValues['amountEnd'] = amountEnd;
+    this.filterForm.get('amountRange')?.valueChanges.subscribe((amount) => {
+      // @ts-ignore
+      this.filterValues['amountStart'] = amount.minimum ? amount?.minimum : 0;
+      this.dataSource.filter = JSON.stringify(this.filterValues);
+    });
+    this.filterForm.get('amountRange')?.valueChanges.subscribe((amount) => {
+      // @ts-ignore
+      this.filterValues['amountEnd'] = amount.maximum ? amount?.maximum : 1000;
       this.dataSource.filter = JSON.stringify(this.filterValues);
     });
   }
@@ -122,16 +135,23 @@ export class SalesManagersComponent implements OnInit {
           .toString()
           .trim()
           .toLowerCase()
-          .indexOf(searchString.lastName.toLowerCase()) !== -1;
-      // &&
-      // data.regDate
-      //   .toString()
-      //   .trim()
-      //   .toLowerCase()
-      //   .indexOf(searchString.regDate.toLowerCase()) !== -1
+          .indexOf(searchString.lastName.toLowerCase()) !== -1 &&
+        // @ts-ignore
+        this.datePipe.transform(data.regDate, 'yyyy-MM-dd') >=
+          // @ts-ignore
+          this.datePipe.transform(searchString.regStartDate, 'yyyy-MM-dd') &&
+        // @ts-ignore
+        this.datePipe.transform(data.regDate, 'yyyy-MM-dd') <=
+          // @ts-ignore
+          this.datePipe.transform(searchString.regEndDate, 'yyyy-MM-dd') &&
+        Number(data.totalAmount ? data.totalAmount : 0) >=
+          Number(searchString.amountStart) &&
+        Number(data.totalAmount ? data.totalAmount : 0) <=
+          Number(searchString.amountEnd);
 
       return resultValue;
     };
+
     this.dataSource.filter = JSON.stringify(this.filterValues);
   }
 

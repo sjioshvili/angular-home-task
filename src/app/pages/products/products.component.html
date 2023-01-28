@@ -62,7 +62,8 @@
                 color="warn"
                 matTooltip="{{'product.sell' | translate}}"
                 matTooltipPosition ="above"
-                (click)="saleProduct(product)">
+                (click)="saleProduct(product)"
+                [disabled]="getSaleDisable(product)">
           <mat-icon class="action-icons">attach_money</mat-icon>
         </button>
       </mat-cell>

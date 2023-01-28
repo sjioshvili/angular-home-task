@@ -76,13 +76,19 @@
       "id": 13,
       "name": "ddd",
       "price": 5,
-      "count": 5
+      "count": 0
     },
     {
       "id": 14,
       "name": "ფფფ",
       "price": 5,
-      "count": 5
+      "count": 0
+    },
+    {
+      "id": 15,
+      "name": "gggg",
+      "price": 5,
+      "count": 0
     }
   ],
   "sellHistory": [
@@ -94,6 +100,114 @@
       "count": 10,
       "sellDate": "26/0/2023 22:54",
       "managerId": 1
+    },
+    {
+      "id": 402,
+      "productId": 14,
+      "name": "ფფფ",
+      "price": 5,
+      "count": 2,
+      "sellDate": "27/0/2023 1:24",
+      "managerId": 1
+    },
+    {
+      "id": 386,
+      "productId": 14,
+      "name": "ფფფ",
+      "price": 5,
+      "count": 2,
+      "sellDate": "27/0/2023 1:25",
+      "managerId": 1
+    },
+    {
+      "id": 494,
+      "productId": 14,
+      "name": "ფფფ",
+      "price": 5,
+      "count": 2,
+      "sellDate": "27/0/2023 1:26",
+      "managerId": 1
+    },
+    {
+      "id": 623,
+      "productId": 14,
+      "name": "ფფფ",
+      "price": 5,
+      "count": 1,
+      "sellDate": "27/0/2023 1:27",
+      "managerId": 1
+    },
+    {
+      "id": 581,
+      "productId": 13,
+      "name": "ddd",
+      "price": 5,
+      "count": 2,
+      "sellDate": "27/0/2023 1:31",
+      "managerId": 1
+    },
+    {
+      "id": 198,
+      "productId": 13,
+      "name": "ddd",
+      "price": 5,
+      "count": 2,
+      "sellDate": "27/0/2023 1:32",
+      "managerId": 1
+    },
+    {
+      "id": 308,
+      "productId": 13,
+      "name": "ddd",
+      "price": 5,
+      "count": 2,
+      "sellDate": "27/0/2023 1:32",
+      "managerId": 1
+    },
+    {
+      "id": 320,
+      "productId": 13,
+      "name": "ddd",
+      "price": 5,
+      "count": 5,
+      "sellDate": "27/0/2023 1:36",
+      "managerId": 1
+    },
+    {
+      "id": 688,
+      "productId": 13,
+      "name": "ddd",
+      "price": 5,
+      "count": 5,
+      "sellDate": "27/0/2023 1:36",
+      "managerId": 1
+    },
+    {
+      "id": 415,
+      "productId": 13,
+      "name": "ddd",
+      "price": 5,
+      "count": 5,
+      "sellDate": "27/0/2023 1:40",
+      "managerId": 1
+    },
+    {
+      "id": 505,
+      "productId": 15,
+      "name": "gggg",
+      "price": 5,
+      "count": 5,
+      "sellDate": "27/0/2023 1:41",
+      "managerId": 1
+    },
+    {
+      "id": 354,
+      "productId": 15,
+      "name": "gggg",
+      "price": 5,
+      "count": 5,
+      "sellDate": "27/0/2023 1:43",
+      "managerId": 1
     }
   ],
   "saleManagers": [
@@ -103,8 +217,8 @@
       "password": "test",
       "firstName": "test name",
       "lastName": "test last name",
-      "regDate": "01/01/2023",
-      "totalAmount": "900"
+      "regDate": "2023-01-01T18:50:38.574Z",
+      "totalAmount": 25
     },
     {
       "id": 2,
@@ -112,7 +226,15 @@
       "firstName": "sophi",
       "lastName": "jio",
       "password": "test",
-      "regDate": "05/01/2023 21:16"
+      "regDate": "2023-01-20T18:50:38.574Z"
+    },
+    {
+      "id": 3,
+      "userName": "ra",
+      "firstName": "ss",
+      "lastName": "sss",
+      "password": "123",
+      "regDate": "2023-01-28T18:50:38.574Z"
     }
   ]
 }

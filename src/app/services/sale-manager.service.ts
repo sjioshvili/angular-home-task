@@ -48,4 +48,15 @@ export class SaleManagerService {
         )
       );
   }
+
+  public editManagerAmount(
+    managerId: number,
+    amount: number
+  ): Observable<SalesManager> {
+    console.log(managerId, amount);
+    return this.http.patch<SalesManager>(
+      `${this.baseUrl}/saleManagers/${managerId}`,
+      { totalAmount: amount }
+    );
+  }
 }

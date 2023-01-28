@@ -15,7 +15,7 @@ export class SaleManagerModalComponent implements OnInit {
     lastName: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required),
     passwordRep: new FormControl('', Validators.required),
-    regDate: new FormControl(this.format.date_TO_String(new Date())),
+    regDate: new FormControl(new Date()),
   });
 
   constructor(

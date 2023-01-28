@@ -5,12 +5,16 @@ import { Observable } from 'rxjs';
 
 import { Product } from '../models/product';
 import { ProductSell } from '../models/productSell';
+import { SaleManagerService } from './sale-manager.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductService {
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private managerService: SaleManagerService
+  ) {}
   private baseUrl = environment.apiUrl;
 
   public getAllProducts(): Observable<Product[]> {
@@ -37,16 +41,17 @@ export class ProductService {
   }
 
   public sellProduct(product: ProductSell): Observable<ProductSell> {
-    let prodByID: Product;
     this.getProductById(product.productId).subscribe((res: Product) => {
-      prodByID = res;
-      prodByID.count = prodByID.count - product.count;
-
+      let count = res.count - product.count;
       this.http
-        .patch<Product>(
-          `${this.baseUrl}/products/${product.productId}`,
-          prodByID
-        )
+        .patch<Product>(`${this.baseUrl}/products/${product.productId}`, {
+          count: count,
+        })
+        .subscribe();
+
+      let amount = product.count * product.price;
+      this.managerService
+        .editManagerAmount(product.managerId, amount)
         .subscribe();
     });
 

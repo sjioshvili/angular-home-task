@@ -24,6 +24,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { NgxsModule } from '@ngxs/store';
 import { ProductState } from './store/products/products.state';
 import { ManagerState } from './store/sale-managers/saleManagers.state';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [AppComponent, LogInComponent],
@@ -51,6 +52,7 @@ import { ManagerState } from './store/sale-managers/saleManagers.state';
     { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     fakeBackendProvider,
+    DatePipe,
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

@@ -116,4 +116,8 @@ export class ProductsComponent implements OnInit, AfterViewInit {
       }
     });
   }
+
+  getSaleDisable(product: Product): boolean {
+    return product.count == 0;
+  }
 }
